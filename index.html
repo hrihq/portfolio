@@ -312,19 +312,20 @@ attachTilt('.about-box',3);
 attachTilt('.cert-card',5);
 
 gsap.registerPlugin(ScrollTrigger);
+/* Aman: fade-in halus saat scroll, dengan fallback anti-hilang. */
 gsap.utils.toArray('.about-box,.skill-card,.project-card,.cert-card,.contact-box').forEach(el=>{
-  gsap.from(el,{
-    y:26,rotationX:4,opacity:0,duration:.7,ease:'power3.out',
-    scrollTrigger:{trigger:el,start:'top 88%',once:true}
-  });
+  gsap.set(el,{opacity:1,visibility:'visible',y:0});
+  gsap.fromTo(el,
+    {opacity:0,y:14},
+    {opacity:1,y:0,duration:.6,ease:'power2.out',delay:.05,overwrite:'auto',
+     scrollTrigger:{trigger:el,start:'top 95%'}}
+  );
 });
-/* Depth-scroll stagger: cards cascade in from slight depth on scroll */
-gsap.utils.toArray('.skills-grid').forEach(grid=>{
-  gsap.from(grid.children,{y:40,z:40,opacity:0,stagger:.08,duration:.8,ease:'back.out(1.4)',scrollTrigger:{trigger:grid,start:'top 82%',once:true}});
-});
-gsap.utils.toArray('.cert-grid').forEach(grid=>{
-  gsap.from(grid.children,{y:40,z:30,opacity:0,stagger:.1,duration:.8,ease:'back.out(1.3)',scrollTrigger:{trigger:grid,start:'top 85%',once:true}});
-});
+/* Fallback anti-hilang: setelah 3s, pastikan SEMUA elemen konten tampil
+   walau ScrollTrigger tidak pernah terpicu. */
+setTimeout(()=>{
+  gsap.set('.about-box,.skill-card,.project-card,.cert-card,.contact-box',{opacity:1,y:0,visibility:'visible'});
+},3000);
 document.querySelectorAll('.project-card').forEach(c=>{
   c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click()}});
 });
