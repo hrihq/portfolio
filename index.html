@@ -93,6 +93,15 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);line-hei
 .tech-row span{font-size:.7rem;font-weight:800;background:#111;color:#ffd200;padding:5px 10px;border-radius:100px;border:2px solid var(--border)}
 .preview{background:var(--yellow);border:3px solid var(--border);border-radius:22px;height:250px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--navy);box-shadow:var(--shadow-sm);position:relative;overflow:hidden;will-change:transform}
 .preview small{position:absolute;bottom:10px;right:10px;font-family:var(--font-comic);font-size:.82rem;background:#fff;color:#111;border:2px solid #111;padding:4px 10px;border-radius:100px;box-shadow:2px 2px 0 #111}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:600px){.cert-grid{grid-template-columns:1fr}}
+.cert-card{background:var(--surface);border:3px solid var(--border);border-radius:24px;padding:24px;text-align:center;box-shadow:var(--shadow-sm);will-change:transform;transform-style:preserve-3d;cursor:pointer;transition:background .22s}
+.cert-card:hover{background:var(--yellow);box-shadow:6px 6px 0 var(--border)}
+.cert-card:hover h3{color:var(--ink)}
+.cert-icon{width:64px;height:64px;border-radius:18px;background:var(--yellow);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--ink);margin:0 auto 12px;box-shadow:3px 3px 0 var(--border)}
+.cert-card h3{font-family:var(--font-comic);font-size:1.5rem;margin-bottom:8px}
+.cert-card p{font-size:.9rem;font-weight:600;color:var(--muted);margin-bottom:14px;line-height:1.5}
+
 @media(max-width:900px){.project-card{grid-template-columns:1fr}.preview{height:190px;order:-1}}
 
 .contact-box{background:var(--navy);color:#fff;border:4px solid var(--border);border-radius:32px;padding:52px 24px;text-align:center;box-shadow:var(--shadow-lg)}
@@ -115,6 +124,7 @@ footer{text-align:center;padding:32px 20px;font-family:var(--font-comic);font-si
       <li><a href="#about">Tentang</a></li>
       <li><a href="#skills">Keahlian</a></li>
       <li><a href="#projects">Proyek</a></li>
+      <li><a href="#certs">Sertifikat</a></li>
       <li><a href="#contact">Kontak</a></li>
     </ul>
     <div style="display:flex;gap:8px;align-items:center">
@@ -196,6 +206,24 @@ footer{text-align:center;padding:32px 20px;font-family:var(--font-comic);font-si
       </div>
       <div class="preview" style="background:#fff6d6"><i class="fa-solid fa-utensils"></i><small>rasa-nusantara</small></div>
     </article>
+  </div>
+</section>
+
+<section class="container" id="certs">
+  <div class="section-head"><h2>SERTIFIKAT</h2><p>Bukti kompetensi yang sudah verified</p></div>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-icon"><i class="fa-solid fa-ad"></i></div>
+      <h3>Google Ads</h3>
+      <p>Certified in Google Ads — strategi iklan digital & campaign management.</p>
+      <a href="assets/Google Ads Certificate.pdf" target="_blank" class="btn btn-primary" style="font-size:.95rem;padding:10px 18px"><i class="fa-solid fa-certificate"></i> LIHAT SERTIFIKAT</a>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon" style="background:var(--red);color:#fff"><i class="fa-solid fa-robot"></i></div>
+      <h3>Claude Code</h3>
+      <p>Certified Claude Code — AI-powered coding agent, workflow automation.</p>
+      <a href="assets/claude code certificate-k2vwn3fvbzd3-1788343085.pdf" target="_blank" class="btn btn-secondary" style="font-size:.95rem;padding:10px 18px"><i class="fa-solid fa-certificate"></i> LIHAT SERTIFIKAT</a>
+    </div>
   </div>
 </section>
 
