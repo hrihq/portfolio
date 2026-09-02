@@ -1,309 +1,277 @@
-1|<!DOCTYPE html>
-2|<html lang="id" data-theme="light">
-3|<head>
-4|<meta charset="UTF-8">
-5|<meta name="viewport" content="width=device-width, initial-scale=1.0">
-6|<title>Heri Ilham Al'viansyah — Welder × Web Developer</title>
-7|<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-8|<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-9|<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-10|<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-11|<style>
-12|:root{
-13|  --bg:#fcf9f2;--surface:#ffffff;--surface-card:#fff6d6;--ink:#111;--navy:#1d2a5e;--red:#d62335;--yellow:#ffd200;
-14|  --muted:#3a3a42;--border:#111;--shadow:6px 6px 0 #111;--shadow-sm:4px 4px 0 #111;--shadow-lg:8px 8px 0 #111;
-15|  --dot:rgba(29,42,94,.12);--font-comic:'Bangers',cursive;--font-sans:'Plus Jakarta Sans',sans-serif;
-16|}
-17|[data-theme="dark"]{
-18|  --bg:#0f0f14;--surface:#1a1a24;--surface-card:#24243a;--ink:#f0f0f8;--muted:#b8b8d0;--navy:#ffd200;--red:#ff3b4a;
-19|  --border:#2e2e42;--shadow:6px 6px 0 #000;--shadow-sm:4px 4px 0 #000;--shadow-lg:8px 8px 0 #000;--dot:rgba(255,255,255,.07);
-20|}
-21|*{box-sizing:border-box;margin:0;padding:0}
-22|html{scroll-behavior:smooth}
-23|body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);line-height:1.6;transition:background .4s,color .4s;background-image:radial-gradient(var(--dot) 1.6px,transparent 1.6px);background-size:18px 18px;overflow-x:hidden}
-24|
-25|/* wipe geser POW! */
-26|#theme-wipe{position:fixed;inset:0;background:#111;z-index:9998;transform:translateX(-100%);transition:transform .62s cubic-bezier(.76,0,.24,1);pointer-events:none;display:flex;align-items:center;justify-content:center}
-27|#theme-wipe::after{content:'POW!';font-family:var(--font-comic);font-size:clamp(3rem,12vw,8rem);color:var(--yellow);-webkit-text-stroke:3px #000;text-shadow:5px 5px 0 #000;opacity:0;transform:scale(.7) rotate(-8deg);transition:all .35s cubic-bezier(.34,1.56,.64,1) .18s}
-28|#theme-wipe.active{transform:translateX(0)}#theme-wipe.active::after{opacity:1;transform:scale(1) rotate(-4deg)}
-29|#theme-wipe.exit{transform:translateX(100%)}
-30|
-31|/* cursor — smooth, no jitter */
-32|.cursor{width:22px;height:22px;background:var(--yellow);border:3px solid var(--border);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .18s}
-33|.cursor.hover{width:30px;height:30px;background:var(--red);border-color:#000}
-34|@media(pointer:coarse){.cursor{display:none}}
-35|
-36|/* nav comic pill */
-37|.nav-wrap{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:900;width:min(94%,820px)}
-38|.comic-nav{background:var(--surface);border:3px solid var(--border);border-radius:100px;padding:8px 12px 8px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow);transition:background .3s,border-color .3s}
-39|.nav-logo{font-family:var(--font-comic);font-size:1.7rem;letter-spacing:1px;color:var(--red);text-decoration:none;text-shadow:2px 2px 0 var(--border);line-height:1;white-space:nowrap}
-40|.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
-41|.nav-links a{font-family:var(--font-comic);font-size:1.05rem;letter-spacing:.5px;color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:100px;border:2px solid transparent;transition:all .2s cubic-bezier(.34,1.56,.64,1);display:inline-block}
-42|.nav-links a:hover{background:var(--yellow);border-color:var(--border);transform:rotate(-2deg) scale(1.05);box-shadow:3px 3px 0 var(--border)}
-43|.theme-toggle{width:52px;height:42px;border-radius:100px;border:3px solid var(--border);background:var(--yellow);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:3px 3px 0 var(--border);transition:all .2s cubic-bezier(.34,1.56,.64,1);font-size:1.1rem;color:var(--ink);flex-shrink:0}
-44|.theme-toggle:hover{transform:scale(1.08) rotate(4deg);background:var(--red);color:#fff}
-45|.mobile-toggle{display:none;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ink)}
-46|@media(max-width:820px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:62px;left:0;right:0;background:var(--surface);border:3px solid var(--border);border-radius:24px;padding:14px;box-shadow:var(--shadow)}.mobile-toggle{display:block}.nav-wrap{width:min(96%,96vw)}}
-47|
-48|/* HERO — sekarang PALING ATAS (bukan scroll-card) */
-49|.hero{max-width:1100px;margin:0 auto;padding:118px 20px 40px;display:grid;grid-template-columns:420px 1fr;gap:36px;align-items:center}
-50|.portrait-card{background:var(--yellow);border:4px solid var(--border);border-radius:32px;padding:14px;box-shadow:var(--shadow-lg);transform:rotate(-1.2deg);will-change:transform;transition:background .25s;cursor:pointer;transform-style:preserve-3d}
-51|.portrait-card:hover{background:var(--red)}
-52|.portrait-card img{width:100%;border-radius:20px;border:3px solid var(--border);display:block;background:var(--surface);aspect-ratio:1;object-fit:cover;object-position:top}
-53|.burst{display:inline-block;background:var(--red);color:#fff;font-family:var(--font-comic);padding:6px 16px;border:3px solid var(--border);border-radius:100px;box-shadow:var(--shadow-sm);transform:rotate(-2deg);margin-bottom:12px;letter-spacing:.5px}
-54|.hero-text h1{font-family:var(--font-comic);font-size:clamp(2.6rem,5vw,3.8rem);line-height:.95;margin-bottom:10px}
-55|.hero-text h1 span{color:var(--red);text-shadow:2px 2px 0 var(--border)}[data-theme="dark"] .hero-text h1 span{color:var(--yellow)}
-56|.hero-text p{font-weight:600;background:var(--surface);border:3px solid var(--border);padding:16px 20px;border-radius:20px;box-shadow:var(--shadow-sm);margin-bottom:18px}
-57|.btn-row{display:flex;gap:12px;flex-wrap:wrap}
-58|.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:100px;font-family:var(--font-comic);font-size:1.15rem;letter-spacing:.5px;text-decoration:none;border:3px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1)}
-59|.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--ink);color:var(--yellow);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--border)}
-60|.btn-secondary{background:var(--surface);color:var(--ink)}.btn-secondary:hover{background:var(--yellow);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--border)}
-61|@media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:96px}.portrait-card{max-width:380px;margin:0 auto;transform:none}}
-62|
-63|/* ContainerScroll — DIPINDAH ke bawah hero, jadi preview proyek (bukan header) */
-64|.scroll-demo{padding:30px 20px 10px;perspective:1200px}
-65|.scroll-demo-inner{max-width:1100px;margin:0 auto;text-align:center}
-66|.scroll-demo h2{font-family:var(--font-comic);font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:6px}
-67|.scroll-demo h2 span{color:var(--red);text-shadow:2px 2px 0 var(--border)}[data-theme="dark"] .scroll-demo h2 span{color:var(--yellow)}
-68|.scroll-demo p{font-weight:700;color:var(--muted);margin-bottom:18px}
-69|.scroll-card-wrap{perspective:1200px;transform-style:preserve-3d}
-70|.scroll-card{width:min(860px,100%);height:420px;margin:0 auto;background:#0f0f14;border:4px solid var(--border);border-radius:28px;box-shadow:var(--shadow-lg);overflow:hidden;padding:10px;transform:rotateX(14deg) scale(1.02);transform-origin:center top;will-change:transform;position:relative;transition:border-color .3s}
-71|.scroll-card:hover{border-color:var(--red)}
-72|.scroll-card-inner{width:100%;height:100%;border-radius:18px;overflow:hidden;background:#111;position:relative}
-73|.scroll-card-inner img{width:100%;height:100%;object-fit:cover;display:block}
-74|.scroll-card-badge{position:absolute;top:12px;left:12px;background:var(--yellow);color:#111;font-family:var(--font-comic);font-size:.95rem;padding:6px 12px;border:3px solid #111;border-radius:100px;box-shadow:3px 3px 0 #111;z-index:2}
-75|@media(max-width:700px){.scroll-card{height:280px;border-radius:20px;transform:rotateX(10deg) scale(1.01)}}
-76|
-77|/* sections */
-78|.container{max-width:1100px;margin:0 auto;padding:72px 20px}
-79|.section-head{text-align:center;margin-bottom:36px}
-80|.section-head h2{font-family:var(--font-comic);font-size:clamp(2rem,5vw,3.4rem);display:inline-block;background:var(--yellow);color:var(--ink);padding:8px 22px;border:3px solid var(--border);border-radius:16px;box-shadow:var(--shadow);transform:rotate(-1deg);letter-spacing:1px}
-81|.section-head p{margin-top:12px;font-weight:700;color:var(--muted);background:var(--surface);display:inline-block;padding:8px 16px;border:3px solid var(--border);border-radius:100px;box-shadow:var(--shadow-sm)}
-82|.about-box{background:var(--surface);border:4px solid var(--border);border-radius:28px;padding:32px;box-shadow:var(--shadow-lg);font-size:1.1rem;font-weight:600;will-change:transform;transform-style:preserve-3d}
-83|.about-box strong{color:var(--red)}[data-theme="dark"] .about-box strong{color:var(--yellow)}
-84|.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
-85|.about-stat{background:var(--surface-card);border:3px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow-sm);text-align:center;will-change:transform}
-86|.about-stat b{font-family:var(--font-comic);font-size:1.9rem;color:var(--red);display:block}
-87|@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
-88|
-89|/* skills — terisi */
-90|.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-91|@media(max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.skills-grid{grid-template-columns:1fr}}
-92|.skill-card{background:var(--surface);border:3px solid var(--border);border-radius:24px;padding:22px;box-shadow:var(--shadow-sm);will-change:transform;transform-style:preserve-3d;cursor:pointer;transition:background .22s,box-shadow .22s}
-93|.skill-card:hover{background:var(--yellow);box-shadow:6px 6px 0 var(--border)}
-94|.skill-card:hover *{color:#111 !important}
-95|.skill-top{width:54px;height:54px;border-radius:16px;background:var(--yellow);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--ink);box-shadow:3px 3px 0 var(--border);margin-bottom:12px}
-96|.skill-card h3{font-family:var(--font-comic);font-size:1.3rem;margin-bottom:6px}
-97|.skill-card p{font-size:.92rem;font-weight:600;color:var(--muted);line-height:1.5;margin-bottom:10px}
-98|.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
-99|.skill-tags span{font-size:.72rem;font-weight:800;background:var(--surface-card);border:2px solid var(--border);padding:4px 9px;border-radius:100px}
-100|
-101|/* projects — terisi, anti getar */
-102|.project-stack{display:flex;flex-direction:column;gap:22px}
-103|.project-card{background:var(--surface);border:4px solid var(--border);border-radius:30px;padding:26px;box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.15fr .9fr;gap:24px;align-items:center;will-change:transform;transform-style:preserve-3d;cursor:pointer}
-104|.project-card:nth-child(2){background:var(--surface-card)}[data-theme="dark"] .project-card:nth-child(2){background:var(--surface)}
-105|.kicker{display:inline-flex;gap:8px;align-items:center;font-family:var(--font-comic);font-size:.9rem;background:var(--yellow);color:#111;border:3px solid #111;padding:5px 12px;border-radius:100px;box-shadow:3px 3px 0 #111;margin-bottom:10px}
-106|.project-card h3{font-family:var(--font-comic);font-size:1.95rem;line-height:1;margin-bottom:8px}
-107|.project-card h3 em{font-style:normal;color:var(--red)}[data-theme="dark"] .project-card h3 em{color:var(--yellow)}
-108|.desc{font-weight:600;margin-bottom:10px}
-109|.feature-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
-110|.feature-list li{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;font-weight:700;background:rgba(255,255,255,.75);border:2px solid var(--border);padding:8px 11px;border-radius:14px}
-111|[data-theme="dark"] .feature-list li{background:rgba(255,255,255,.06);color:var(--ink)}
-112|.feature-list li i{color:var(--red);margin-top:3px;flex-shrink:0}
-113|.tech-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-114|.tech-row span{font-size:.7rem;font-weight:800;background:#111;color:#ffd200;padding:5px 10px;border-radius:100px;border:2px solid var(--border)}
-115|.preview{background:var(--yellow);border:3px solid var(--border);border-radius:22px;height:250px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--navy);box-shadow:var(--shadow-sm);position:relative;overflow:hidden;will-change:transform}
-116|.preview small{position:absolute;bottom:10px;right:10px;font-family:var(--font-comic);font-size:.82rem;background:#fff;color:#111;border:2px solid #111;padding:4px 10px;border-radius:100px;box-shadow:2px 2px 0 #111}
-117|@media(max-width:900px){.project-card{grid-template-columns:1fr}.preview{height:190px;order:-1}}
-118|
-119|/* contact */
-120|.contact-box{background:var(--navy);color:#fff;border:4px solid var(--border);border-radius:32px;padding:52px 24px;text-align:center;box-shadow:var(--shadow-lg)}
-121|[data-theme="dark"] .contact-box{background:var(--surface);color:var(--ink);border-color:var(--border)}
-122|.contact-box h2{font-family:var(--font-comic);font-size:clamp(2rem,5vw,3.2rem);color:var(--yellow);text-shadow:3px 3px 0 #000;margin-bottom:10px}
-123|.contact-box p{font-weight:700;opacity:.95;margin-bottom:20px;max-width:640px;margin-left:auto;margin-right:auto}
-124|.contact-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-125|footer{text-align:center;padding:32px 20px;font-family:var(--font-comic);font-size:1rem;letter-spacing:.4px;opacity:.9}
-126|@media(prefers-reduced-motion:reduce){.scroll-card{transform:none !important}.cursor{display:none}}
-127|</style>
-128|</head>
-129|<body>
-130|<div id="theme-wipe" aria-hidden="true"></div>
-131|<div class="cursor" id="cursor"></div>
-132|
-133|<div class="nav-wrap">
-134|  <nav class="comic-nav" aria-label="Navigasi">
-135|    <a href="#" class="nav-logo">HERI.DEV</a>
-136|    <ul class="nav-links" id="navLinks">
-137|      <li><a href="#about">Tentang</a></li>
-138|      <li><a href="#skills">Keahlian</a></li>
-139|      <li><a href="#projects">Proyek</a></li>
-140|      <li><a href="#contact">Kontak</a></li>
-141|    </ul>
-142|    <div style="display:flex;gap:8px;align-items:center">
-143|      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema" title="Ganti tema"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
-144|      <button class="mobile-toggle" id="mobileBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
-145|    </div>
-146|  </nav>
-147|</div>
-148|
-149|<!-- HERO PALING ATAS — personal, bukan demo -->
-150|<section class="hero" id="top">
-151|  <div class="portrait-card" id="portraitCard" title="Klik untuk kontak">
-152|    <img src="assets/profile.png" alt="Heri Ilham — Welder & Web Developer" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop'">
-153|  </div>
-154|  <div class="hero-text">
-155|    <div class="burst"><i class="fa-solid fa-fire"></i> WELDER & WEB DEVELOPER</div>
-156|    <h1>HERI ILHAM <span>AL'VIANSYAH</span></h1>
-157|    <p>Pengembang web yang berfokus pada <b>otomasi AI</b> untuk efisiensi alur kerja. Ketelitian las + kreativitas kode — semua UI di sini interaktif: hover, tilt halus, dan animasi scroll.</p>
-158|    <div class="btn-row">
-159|      <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> LIHAT PROYEK</a>
-160|      <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> HUBUNGI SAYA</a>
-161|    </div>
-162|  </div>
-163|</section>
-164|
-165|
-180|
-181|<section class="container" id="about">
-182|  <div class="section-head"><h2>TENTANG SAYA</h2><p>Presisi teknik × Kreativitas digital</p></div>
-183|  <div class="about-box" id="aboutBox">
-184|    <p>Saya <strong>Welder</strong> yang beralih ke <strong>Web Development & AI Automation</strong>. Misi: sistem <strong>cepat, offline, anti-ribet</strong> — dari kasir warung sampai otomasi yang menghemat jam kerja. Dibuat <strong>pixel-perfect & interaktif</strong>.</p>
-185|    <div class="about-grid">
-186|      <div class="about-stat"><b>3+</b><span>Tahun Ngoding & Otomasi</span></div>
-187|      <div class="about-stat"><b>2</b><span>Produk di GitHub (hrihq)</span></div>
-188|    </div>
-189|  </div>
-190|</section>
-191|
-192|<section class="container" id="skills">
-193|  <div class="section-head"><h2>KEAHLIAN UTAMA</h2><p>Stack harian — siap produksi</p></div>
-194|  <div class="skills-grid">
-195|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-code"></i></div><h3>Frontend Web</h3><p>React + Vite, Tailwind, HTML5 semantik, GSAP.</p><div class="skill-tags"><span>React</span><span>Vite</span><span>Tailwind</span><span>GSAP</span></div></div>
-196|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-mobile-screen"></i></div><h3>Mobile & PWA</h3><p>Capacitor Android, responsif, landscape & offline-first.</p><div class="skill-tags"><span>Capacitor</span><span>PWA</span><span>Android</span><span>Offline</span></div></div>
-197|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-robot"></i></div><h3>AI & Otomasi</h3><p>Python, AI Agents, LLM & workflow automation.</p><div class="skill-tags"><span>Python</span><span>Agents</span><span>LLM</span><span>Automation</span></div></div>
-198|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-table-columns"></i></div><h3>Data & Laporan</h3><p>SheetJS Excel (.xlsx), laporan harian & rekap.</p><div class="skill-tags"><span>SheetJS</span><span>Excel</span><span>Laporan</span><span>IndexedDB</span></div></div>
-199|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-palette"></i></div><h3>UI Interaktif</h3><p>Comic burst, hard shadow, tilt halus, magnet cursor.</p><div class="skill-tags"><span>Figma</span><span>Motion</span><span>A11y</span><span>Comic UI</span></div></div>
-200|    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-hammer"></i></div><h3>Presisi Teknik</h3><p>Background Welder: disiplin struktur & QA.</p><div class="skill-tags"><span>Welding</span><span>Struktur</span><span>QA</span><span>Detail</span></div></div>
-201|  </div>
-202|</section>
-203|
-204|<section class="container" id="projects">
-205|  <div class="section-head"><h2>PROYEK PORTOFOLIO</h2><p>Klik kartu untuk buka GitHub • Tilt halus saat mouse bergerak</p></div>
-206|  <div class="project-stack">
-207|    <article class="project-card" onclick="window.open('https://github.com/hrihq/kasir-nusantara','_blank')" role="link" tabindex="0" aria-label="Kasir Nusantara">
-208|      <div>
-209|        <div class="kicker"><i class="fa-solid fa-star"></i> 1 STAR • 53 COMMITS • OFFLINE POS</div>
-210|        <h3>KASIR <em>NUSANTARA</em></h3>
-211|        <p class="desc">Aplikasi kasir warung <b>offline penuh</b> — tanpa server & langganan.</p>
-212|        <ul class="feature-list">
-213|          <li><i class="fa-solid fa-cart-shopping"></i><span><b>Kasir cepat</b> — keranjang, edit jumlah, Tunai (kembalian auto) / QRIS</span></li>
-214|          <li><i class="fa-solid fa-receipt"></i><span><b>Struk digital</b> bisa dibagikan</span></li>
-215|          <li><i class="fa-solid fa-box"></i><span><b>Kelola produk</b> — foto, harga, stok; dikunci <b>PIN</b></span></li>
-216|          <li><i class="fa-solid fa-chart-line"></i><span><b>Laporan harian</b> + ekspor <b>Excel (.xlsx)</b></span></li>
-217|        </ul>
-218|        <div class="tech-row"><span>Vite</span><span>React</span><span>Tailwind</span><span>Capacitor</span><span>SheetJS</span></div>
-219|        <span class="btn btn-primary"><i class="fa-brands fa-github"></i> BUKA DI GITHUB</span>
-220|      </div>
-221|      <div class="preview" aria-hidden="true"><i class="fa-solid fa-cash-register"></i><small>hrihq/kasir-nusantara</small></div>
-222|    </article>
-223|    <article class="project-card" onclick="window.open('https://github.com/hrihq/rasa-nusantara','_blank')" role="link" tabindex="0" aria-label="Rasa Nusantara">
-224|      <div>
-225|        <div class="kicker" style="background:#fff;color:#111"><i class="fa-solid fa-utensils"></i> BARU • EKSPLORASI BUDAYA</div>
-226|        <h3>RASA <em>NUSANTARA</em></h3>
-227|        <p class="desc">Katalog kuliner & budaya — resep, cerita daerah, kurasi rasa.</p>
-228|        <ul class="feature-list">
-229|          <li><i class="fa-solid fa-book-open"></i><span>Katalog per daerah + foto & deskripsi</span></li>
-230|          <li><i class="fa-solid fa-magnifying-glass"></i><span>Filter kategori (pedas, manis, tradisional)</span></li>
-231|          <li><i class="fa-solid fa-code"></i><span>Repo baru — siap kembang fitur</span></li>
-232|        </ul>
-233|        <div class="tech-row"><span>Web</span><span>JavaScript</span><span>Content</span></div>
-234|        <span class="btn btn-secondary"><i class="fa-brands fa-github"></i> LIHAT REPO</span>
-235|      </div>
-236|      <div class="preview" style="background:#fff6d6"><i class="fa-solid fa-utensils"></i><small>rasa-nusantara</small></div>
-237|    </article>
-238|  </div>
-239|</section>
-240|
-241|<section class="container" id="contact">
-242|  <div class="contact-box">
-243|    <h2>MARI BERKOLABORASI!</h2>
-244|    <p>Email & LinkedIn aktif — balas &lt; 24 jam.</p>
-245|    <div class="contact-actions">
-246|      <a href="mailto:heriilhamalviansyah28@gmail.com" class="btn" style="background:var(--yellow);color:#111;border-color:#111"><i class="fa-solid fa-envelope"></i> heriilhamalviansyah28@gmail.com</a>
-247|      <a href="https://www.linkedin.com/in/heri-ilham-al-viansyah-5ba85a426/" target="_blank" class="btn btn-secondary" style="background:#fff;color:#111"><i class="fa-brands fa-linkedin"></i> LINKEDIN</a>
-248|      <a href="https://github.com/hrihq" target="_blank" class="btn" style="background:#111;color:#fff;border-color:#111"><i class="fa-brands fa-github"></i> GITHUB</a>
-249|    </div>
-250|  </div>
-251|</section>
-252|<footer><p>© 2026 HERI ILHAM AL'VIANSYAH • Welder × Web Dev × AI Automation — Comic burst & tilt halus</p></footer>
-253|
-254|<script>
-255|/* theme wipe */
-256|(function(){
-257|  const html=document.documentElement,wipe=document.getElementById('theme-wipe'),btn=document.getElementById('themeToggle'),icon=document.getElementById('themeIcon');
-258|  const saved=localStorage.getItem('theme');
-259|  if(saved) html.setAttribute('data-theme',saved);
-260|  else if(window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme','dark');
-261|  function sync(){const d=html.getAttribute('data-theme')==='dark';icon.className=d?'fa-solid fa-sun':'fa-solid fa-moon'}
-262|  sync();
-263|  btn.addEventListener('click',()=>{
-264|    if(wipe.classList.contains('active')) return;
-265|    wipe.classList.remove('exit');wipe.classList.add('active');
-266|    setTimeout(()=>{
-267|      const isDark=html.getAttribute('data-theme')==='dark';
-268|      const next=isDark?'light':'dark';
-269|      html.setAttribute('data-theme',next);localStorage.setItem('theme',next);sync();
-270|      wipe.classList.remove('active');wipe.classList.add('exit');
-271|      setTimeout(()=>wipe.classList.remove('exit'),700);
-272|    },620);
-273|  });
-274|})();
-275|document.getElementById('mobileBtn').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
-276|document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
-277|
-278|/* cursor — lerp halus */
-279|const cursor=document.getElementById('cursor');
-280|let mx=0,my=0,cx=0,cy=0;
-281|window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
-282|(function loop(){cx+=(mx-cx)*0.18;cy+=(my-cy)*0.18;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(loop)})();
-283|['a','.btn','.skill-card','.project-card','.portrait-card','.theme-toggle'].forEach(sel=>{
-284|  document.querySelectorAll(sel).forEach(el=>{
-285|    el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
-286|    el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
-287|  });
-288|});
-289|document.getElementById('portraitCard').addEventListener('click',()=>location.href='#contact');
-290|
-291|/* TILT HALUS — anti getar: GSAP tween, max 6deg, durasi 0.45 */
-292|function attachTilt(selector,maxDeg){
-293|  document.querySelectorAll(selector).forEach(card=>{
-294|    card.addEventListener('mousemove',e=>{
-295|      const r=card.getBoundingClientRect();
-296|      const x=((e.clientX-r.left)/r.width -0.5)*maxDeg;
-297|      const y=((e.clientY-r.top)/r.height-0.5)*maxDeg;
-298|      gsap.to(card,{rotationY:x,rotationX:-y,duration:0.45,ease:'power2.out',transformPerspective:900,overwrite:'auto'});
-299|    });
-300|    card.addEventListener('mouseleave',()=>{
-301|      gsap.to(card,{rotationY:0,rotationX:0,duration:0.7,ease:'power3.out',transformPerspective:900,overwrite:'auto'});
-302|    });
-303|  });
-304|}
-305|attachTilt('.portrait-card',6);
-306|attachTilt('.skill-card',5);
-307|attachTilt('.project-card',5);
-308|attachTilt('.about-box',3);
-309|
-310|/* ContainerScroll scrub — lebih landai biar gak kaget */
-311|gsap.registerPlugin(ScrollTrigger);
-312|gsap.to('#scrollCard',{rotateX:0,scale:1,ease:'none',scrollTrigger:{trigger:'.scroll-demo',start:'top 78%',end:'bottom 52%',scrub:0.7}});
-313|/* hero & cards reveal — sekali, halus */
-314|gsap.utils.toArray('.about-box,.skill-card,.project-card,.contact-box').forEach(el=>{
-315|  gsap.from(el,{y:22,opacity:0,duration:.55,scrollTrigger:{trigger:el,start:'top 88%',once:true}});
-316|});
-317|document.querySelectorAll('.project-card').forEach(c=>{
-318|  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click()}});
-319|});
-320|</script>
-321|</body>
-322|</html>
-323|
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heri Ilham Al'viansyah — Welder × Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#fcf9f2;--surface:#ffffff;--surface-card:#fff6d6;--ink:#111;--navy:#1d2a5e;--red:#d62335;--yellow:#ffd200;
+  --muted:#3a3a42;--border:#111;--shadow:6px 6px 0 #111;--shadow-sm:4px 4px 0 #111;--shadow-lg:8px 8px 0 #111;
+  --dot:rgba(29,42,94,.12);--font-comic:'Bangers',cursive;--font-sans:'Plus Jakarta Sans',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0f0f14;--surface:#1a1a24;--surface-card:#24243a;--ink:#f0f0f8;--muted:#b8b8d0;--navy:#ffd200;--red:#ff3b4a;
+  --border:#2e2e42;--shadow:6px 6px 0 #000;--shadow-sm:4px 4px 0 #000;--shadow-lg:8px 8px 0 #000;--dot:rgba(255,255,255,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);line-height:1.6;transition:background .4s,color .4s;background-image:radial-gradient(var(--dot) 1.6px,transparent 1.6px);background-size:18px 18px;overflow-x:hidden}
+
+#theme-wipe{position:fixed;inset:0;background:#111;z-index:9998;transform:translateX(-100%);transition:transform .62s cubic-bezier(.76,0,.24,1);pointer-events:none;display:flex;align-items:center;justify-content:center}
+#theme-wipe::after{content:'POW!';font-family:var(--font-comic);font-size:clamp(3rem,12vw,8rem);color:var(--yellow);-webkit-text-stroke:3px #000;text-shadow:5px 5px 0 #000;opacity:0;transform:scale(.7) rotate(-8deg);transition:all .35s cubic-bezier(.34,1.56,.64,1) .18s}
+#theme-wipe.active{transform:translateX(0)}#theme-wipe.active::after{opacity:1;transform:scale(1) rotate(-4deg)}
+#theme-wipe.exit{transform:translateX(100%)}
+
+.cursor{width:22px;height:22px;background:var(--yellow);border:3px solid var(--border);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .18s}
+.cursor.hover{width:30px;height:30px;background:var(--red);border-color:#000}
+@media(pointer:coarse){.cursor{display:none}}
+
+.nav-wrap{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:900;width:min(94%,820px)}
+.comic-nav{background:var(--surface);border:3px solid var(--border);border-radius:100px;padding:8px 12px 8px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:var(--shadow);transition:background .3s,border-color .3s}
+.nav-logo{font-family:var(--font-comic);font-size:1.7rem;letter-spacing:1px;color:var(--red);text-decoration:none;text-shadow:2px 2px 0 var(--border);line-height:1;white-space:nowrap}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center}
+.nav-links a{font-family:var(--font-comic);font-size:1.05rem;letter-spacing:.5px;color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:100px;border:2px solid transparent;transition:all .2s cubic-bezier(.34,1.56,.64,1);display:inline-block}
+.nav-links a:hover{background:var(--yellow);border-color:var(--border);transform:rotate(-2deg) scale(1.05);box-shadow:3px 3px 0 var(--border)}
+.theme-toggle{width:52px;height:42px;border-radius:100px;border:3px solid var(--border);background:var(--yellow);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:3px 3px 0 var(--border);transition:all .2s cubic-bezier(.34,1.56,.64,1);font-size:1.1rem;color:var(--ink);flex-shrink:0}
+.theme-toggle:hover{transform:scale(1.08) rotate(4deg);background:var(--red);color:#fff}
+.mobile-toggle{display:none;background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ink)}
+@media(max-width:820px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:62px;left:0;right:0;background:var(--surface);border:3px solid var(--border);border-radius:24px;padding:14px;box-shadow:var(--shadow)}.mobile-toggle{display:block}.nav-wrap{width:min(96%,96vw)}}
+
+.hero{max-width:1100px;margin:0 auto;padding:118px 20px 40px;display:grid;grid-template-columns:420px 1fr;gap:36px;align-items:center}
+.portrait-card{background:var(--yellow);border:4px solid var(--border);border-radius:32px;padding:14px;box-shadow:var(--shadow-lg);transform:rotate(-1.2deg);will-change:transform;transition:background .25s;cursor:pointer;transform-style:preserve-3d}
+.portrait-card:hover{background:var(--red)}
+.portrait-card img{width:100%;border-radius:20px;border:3px solid var(--border);display:block;background:var(--surface);aspect-ratio:1;object-fit:cover;object-position:top}
+.burst{display:inline-block;background:var(--red);color:#fff;font-family:var(--font-comic);padding:6px 16px;border:3px solid var(--border);border-radius:100px;box-shadow:var(--shadow-sm);transform:rotate(-2deg);margin-bottom:12px;letter-spacing:.5px}
+.hero-text h1{font-family:var(--font-comic);font-size:clamp(2.6rem,5vw,3.8rem);line-height:.95;margin-bottom:10px}
+.hero-text h1 span{color:var(--red);text-shadow:2px 2px 0 var(--border)}[data-theme="dark"] .hero-text h1 span{color:var(--yellow)}
+.hero-text p{font-weight:600;background:var(--surface);border:3px solid var(--border);padding:16px 20px;border-radius:20px;box-shadow:var(--shadow-sm);margin-bottom:18px}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:100px;font-family:var(--font-comic);font-size:1.15rem;letter-spacing:.5px;text-decoration:none;border:3px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1)}
+.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--ink);color:var(--yellow);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--border)}
+.btn-secondary{background:var(--surface);color:var(--ink)}.btn-secondary:hover{background:var(--yellow);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--border)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:96px}.portrait-card{max-width:380px;margin:0 auto;transform:none}}
+
+.container{max-width:1100px;margin:0 auto;padding:72px 20px}
+.section-head{text-align:center;margin-bottom:36px}
+.section-head h2{font-family:var(--font-comic);font-size:clamp(2rem,5vw,3.4rem);display:inline-block;background:var(--yellow);color:var(--ink);padding:8px 22px;border:3px solid var(--border);border-radius:16px;box-shadow:var(--shadow);transform:rotate(-1deg);letter-spacing:1px}
+.section-head p{margin-top:12px;font-weight:700;color:var(--muted);background:var(--surface);display:inline-block;padding:8px 16px;border:3px solid var(--border);border-radius:100px;box-shadow:var(--shadow-sm)}
+.about-box{background:var(--surface);border:4px solid var(--border);border-radius:28px;padding:32px;box-shadow:var(--shadow-lg);font-size:1.1rem;font-weight:600;will-change:transform;transform-style:preserve-3d}
+.about-box strong{color:var(--red)}[data-theme="dark"] .about-box strong{color:var(--yellow)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.about-stat{background:var(--surface-card);border:3px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow-sm);text-align:center;will-change:transform}
+.about-stat b{font-family:var(--font-comic);font-size:1.9rem;color:var(--red);display:block}
+@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.skills-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.skills-grid{grid-template-columns:1fr}}
+.skill-card{background:var(--surface);border:3px solid var(--border);border-radius:24px;padding:22px;box-shadow:var(--shadow-sm);will-change:transform;transform-style:preserve-3d;cursor:pointer;transition:background .22s,box-shadow .22s}
+.skill-card:hover{background:var(--yellow);box-shadow:6px 6px 0 var(--border)}
+.skill-card:hover *{color:#111 !important}
+.skill-top{width:54px;height:54px;border-radius:16px;background:var(--yellow);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.35rem;color:var(--ink);box-shadow:3px 3px 0 var(--border);margin-bottom:12px}
+.skill-card h3{font-family:var(--font-comic);font-size:1.3rem;margin-bottom:6px}
+.skill-card p{font-size:.92rem;font-weight:600;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tags span{font-size:.72rem;font-weight:800;background:var(--surface-card);border:2px solid var(--border);padding:4px 9px;border-radius:100px}
+
+.project-stack{display:flex;flex-direction:column;gap:22px}
+.project-card{background:var(--surface);border:4px solid var(--border);border-radius:30px;padding:26px;box-shadow:var(--shadow-lg);display:grid;grid-template-columns:1.15fr .9fr;gap:24px;align-items:center;will-change:transform;transform-style:preserve-3d;cursor:pointer}
+.project-card:nth-child(2){background:var(--surface-card)}[data-theme="dark"] .project-card:nth-child(2){background:var(--surface)}
+.kicker{display:inline-flex;gap:8px;align-items:center;font-family:var(--font-comic);font-size:.9rem;background:var(--yellow);color:#111;border:3px solid #111;padding:5px 12px;border-radius:100px;box-shadow:3px 3px 0 #111;margin-bottom:10px}
+.project-card h3{font-family:var(--font-comic);font-size:1.95rem;line-height:1;margin-bottom:8px}
+.project-card h3 em{font-style:normal;color:var(--red)}[data-theme="dark"] .project-card h3 em{color:var(--yellow)}
+.desc{font-weight:600;margin-bottom:10px}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.feature-list li{display:flex;gap:10px;align-items:flex-start;font-size:.86rem;font-weight:700;background:rgba(255,255,255,.75);border:2px solid var(--border);padding:8px 11px;border-radius:14px}
+[data-theme="dark"] .feature-list li{background:rgba(255,255,255,.06);color:var(--ink)}
+.feature-list li i{color:var(--red);margin-top:3px;flex-shrink:0}
+.tech-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tech-row span{font-size:.7rem;font-weight:800;background:#111;color:#ffd200;padding:5px 10px;border-radius:100px;border:2px solid var(--border)}
+.preview{background:var(--yellow);border:3px solid var(--border);border-radius:22px;height:250px;display:flex;align-items:center;justify-content:center;font-size:4rem;color:var(--navy);box-shadow:var(--shadow-sm);position:relative;overflow:hidden;will-change:transform}
+.preview small{position:absolute;bottom:10px;right:10px;font-family:var(--font-comic);font-size:.82rem;background:#fff;color:#111;border:2px solid #111;padding:4px 10px;border-radius:100px;box-shadow:2px 2px 0 #111}
+@media(max-width:900px){.project-card{grid-template-columns:1fr}.preview{height:190px;order:-1}}
+
+.contact-box{background:var(--navy);color:#fff;border:4px solid var(--border);border-radius:32px;padding:52px 24px;text-align:center;box-shadow:var(--shadow-lg)}
+[data-theme="dark"] .contact-box{background:var(--surface);color:var(--ink);border-color:var(--border)}
+.contact-box h2{font-family:var(--font-comic);font-size:clamp(2rem,5vw,3.2rem);color:var(--yellow);text-shadow:3px 3px 0 #000;margin-bottom:10px}
+.contact-box p{font-weight:700;opacity:.95;margin-bottom:20px;max-width:640px;margin-left:auto;margin-right:auto}
+.contact-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+footer{text-align:center;padding:32px 20px;font-family:var(--font-comic);font-size:1rem;letter-spacing:.4px;opacity:.9}
+@media(prefers-reduced-motion:reduce){.cursor{display:none}}
+</style>
+</head>
+<body>
+<div id="theme-wipe" aria-hidden="true"></div>
+<div class="cursor" id="cursor"></div>
+
+<div class="nav-wrap">
+  <nav class="comic-nav" aria-label="Navigasi">
+    <a href="#" class="nav-logo">HERI.DEV</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#skills">Keahlian</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema" title="Ganti tema"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+      <button class="mobile-toggle" id="mobileBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </nav>
+</div>
+
+<section class="hero" id="top">
+  <div class="portrait-card" id="portraitCard" title="Klik untuk kontak">
+    <img src="assets/profile.png" alt="Heri Ilham — Welder & Web Developer" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop'">
+  </div>
+  <div class="hero-text">
+    <div class="burst"><i class="fa-solid fa-fire"></i> WELDER & WEB DEVELOPER</div>
+    <h1>HERI ILHAM <span>AL'VIANSYAH</span></h1>
+    <p>Pengembang web yang berfokus pada <b>otomasi AI</b> untuk efisiensi alur kerja. Ketelitian las + kreativitas kode — semua UI di sini interaktif: hover, tilt halus, dan animasi scroll.</p>
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> LIHAT PROYEK</a>
+      <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-paper-plane"></i> HUBUNGI SAYA</a>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="about">
+  <div class="section-head"><h2>TENTANG SAYA</h2><p>Presisi teknik × Kreativitas digital</p></div>
+  <div class="about-box" id="aboutBox">
+    <p>Saya <strong>Welder</strong> yang beralih ke <strong>Web Development & AI Automation</strong>. Misi: sistem <strong>cepat, offline, anti-ribet</strong> — dari kasir warung sampai otomasi yang menghemat jam kerja. Dibuat <strong>pixel-perfect & interaktif</strong>.</p>
+    <div class="about-grid">
+      <div class="about-stat"><b>3+</b><span>Tahun Ngoding & Otomasi</span></div>
+      <div class="about-stat"><b>2</b><span>Produk di GitHub (hrihq)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="skills">
+  <div class="section-head"><h2>KEAHLIAN UTAMA</h2><p>Stack harian — siap produksi</p></div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-code"></i></div><h3>Frontend Web</h3><p>React + Vite, Tailwind, HTML5 semantik, GSAP.</p><div class="skill-tags"><span>React</span><span>Vite</span><span>Tailwind</span><span>GSAP</span></div></div>
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-mobile-screen"></i></div><h3>Mobile & PWA</h3><p>Capacitor Android, responsif, landscape & offline-first.</p><div class="skill-tags"><span>Capacitor</span><span>PWA</span><span>Android</span><span>Offline</span></div></div>
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-robot"></i></div><h3>AI & Otomasi</h3><p>Python, AI Agents, LLM & workflow automation.</p><div class="skill-tags"><span>Python</span><span>Agents</span><span>LLM</span><span>Automation</span></div></div>
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-table-columns"></i></div><h3>Data & Laporan</h3><p>SheetJS Excel (.xlsx), laporan harian & rekap.</p><div class="skill-tags"><span>SheetJS</span><span>Excel</span><span>Laporan</span><span>IndexedDB</span></div></div>
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-palette"></i></div><h3>UI Interaktif</h3><p>Comic burst, hard shadow, tilt halus, magnet cursor.</p><div class="skill-tags"><span>Figma</span><span>Motion</span><span>A11y</span><span>Comic UI</span></div></div>
+    <div class="skill-card"><div class="skill-top"><i class="fa-solid fa-hammer"></i></div><h3>Presisi Teknik</h3><p>Background Welder: disiplin struktur & QA.</p><div class="skill-tags"><span>Welding</span><span>Struktur</span><span>QA</span><span>Detail</span></div></div>
+  </div>
+</section>
+
+<section class="container" id="projects">
+  <div class="section-head"><h2>PROYEK PORTOFOLIO</h2><p>Klik kartu untuk buka GitHub • Tilt halus saat mouse bergerak</p></div>
+  <div class="project-stack">
+    <article class="project-card" onclick="window.open('https://github.com/hrihq/kasir-nusantara','_blank')" role="link" tabindex="0" aria-label="Kasir Nusantara">
+      <div>
+        <div class="kicker"><i class="fa-solid fa-star"></i> 1 STAR • 53 COMMITS • OFFLINE POS</div>
+        <h3>KASIR <em>NUSANTARA</em></h3>
+        <p class="desc">Aplikasi kasir warung <b>offline penuh</b> — tanpa server & langganan.</p>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-cart-shopping"></i><span><b>Kasir cepat</b> — keranjang, edit jumlah, Tunai (kembalian auto) / QRIS</span></li>
+          <li><i class="fa-solid fa-receipt"></i><span><b>Struk digital</b> bisa dibagikan</span></li>
+          <li><i class="fa-solid fa-box"></i><span><b>Kelola produk</b> — foto, harga, stok; dikunci <b>PIN</b></span></li>
+          <li><i class="fa-solid fa-chart-line"></i><span><b>Laporan harian</b> + ekspor <b>Excel (.xlsx)</b></span></li>
+        </ul>
+        <div class="tech-row"><span>Vite</span><span>React</span><span>Tailwind</span><span>Capacitor</span><span>SheetJS</span></div>
+        <span class="btn btn-primary"><i class="fa-brands fa-github"></i> BUKA DI GITHUB</span>
+      </div>
+      <div class="preview" aria-hidden="true"><i class="fa-solid fa-cash-register"></i><small>hrihq/kasir-nusantara</small></div>
+    </article>
+    <article class="project-card" onclick="window.open('https://github.com/hrihq/rasa-nusantara','_blank')" role="link" tabindex="0" aria-label="Rasa Nusantara">
+      <div>
+        <div class="kicker" style="background:#fff;color:#111"><i class="fa-solid fa-utensils"></i> BARU • EKSPLORASI BUDAYA</div>
+        <h3>RASA <em>NUSANTARA</em></h3>
+        <p class="desc">Katalog kuliner & budaya — resep, cerita daerah, kurasi rasa.</p>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-book-open"></i><span>Katalog per daerah + foto & deskripsi</span></li>
+          <li><i class="fa-solid fa-magnifying-glass"></i><span>Filter kategori (pedas, manis, tradisional)</span></li>
+          <li><i class="fa-solid fa-code"></i><span>Repo baru — siap kembang fitur</span></li>
+        </ul>
+        <div class="tech-row"><span>Web</span><span>JavaScript</span><span>Content</span></div>
+        <span class="btn btn-secondary"><i class="fa-brands fa-github"></i> LIHAT REPO</span>
+      </div>
+      <div class="preview" style="background:#fff6d6"><i class="fa-solid fa-utensils"></i><small>rasa-nusantara</small></div>
+    </article>
+  </div>
+</section>
+
+<section class="container" id="contact">
+  <div class="contact-box">
+    <h2>MARI BERKOLABORASI!</h2>
+    <p>Email & LinkedIn aktif — balas &lt; 24 jam.</p>
+    <div class="contact-actions">
+      <a href="mailto:heriilhamalviansyah28@gmail.com" class="btn" style="background:var(--yellow);color:#111;border-color:#111"><i class="fa-solid fa-envelope"></i> heriilhamalviansyah28@gmail.com</a>
+      <a href="https://www.linkedin.com/in/heri-ilham-al-viansyah-5ba85a426/" target="_blank" class="btn btn-secondary" style="background:#fff;color:#111"><i class="fa-brands fa-linkedin"></i> LINKEDIN</a>
+      <a href="https://github.com/hrihq" target="_blank" class="btn" style="background:#111;color:#fff;border-color:#111"><i class="fa-brands fa-github"></i> GITHUB</a>
+    </div>
+  </div>
+</section>
+<footer><p>© 2026 HERI ILHAM AL'VIANSYAH • Welder × Web Dev × AI Automation — Comic burst & tilt halus</p></footer>
+
+<script>
+(function(){
+  const html=document.documentElement,wipe=document.getElementById('theme-wipe'),btn=document.getElementById('themeToggle'),icon=document.getElementById('themeIcon');
+  const saved=localStorage.getItem('theme');
+  if(saved) html.setAttribute('data-theme',saved);
+  else if(window.matchMedia('(prefers-color-scheme: dark)').matches) html.setAttribute('data-theme','dark');
+  function sync(){const d=html.getAttribute('data-theme')==='dark';icon.className=d?'fa-solid fa-sun':'fa-solid fa-moon'}
+  sync();
+  btn.addEventListener('click',()=>{
+    if(wipe.classList.contains('active')) return;
+    wipe.classList.remove('exit');wipe.classList.add('active');
+    setTimeout(()=>{
+      const isDark=html.getAttribute('data-theme')==='dark';
+      const next=isDark?'light':'dark';
+      html.setAttribute('data-theme',next);localStorage.setItem('theme',next);sync();
+      wipe.classList.remove('active');wipe.classList.add('exit');
+      setTimeout(()=>wipe.classList.remove('exit'),700);
+    },620);
+  });
+})();
+document.getElementById('mobileBtn').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+const cursor=document.getElementById('cursor');
+let mx=0,my=0,cx=0,cy=0;
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
+(function loop(){cx+=(mx-cx)*0.18;cy+=(my-cy)*0.18;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(loop)})();
+['a','.btn','.skill-card','.project-card','.portrait-card','.theme-toggle'].forEach(sel=>{
+  document.querySelectorAll(sel).forEach(el=>{
+    el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+    el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
+  });
+});
+document.getElementById('portraitCard').addEventListener('click',()=>location.href='#contact');
+
+function attachTilt(selector,maxDeg){
+  document.querySelectorAll(selector).forEach(card=>{
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width -0.5)*maxDeg;
+      const y=((e.clientY-r.top)/r.height-0.5)*maxDeg;
+      gsap.to(card,{rotationY:x,rotationX:-y,duration:0.45,ease:'power2.out',transformPerspective:900,overwrite:'auto'});
+    });
+    card.addEventListener('mouseleave',()=>{
+      gsap.to(card,{rotationY:0,rotationX:0,duration:0.7,ease:'power3.out',transformPerspective:900,overwrite:'auto'});
+    });
+  });
+}
+attachTilt('.portrait-card',6);
+attachTilt('.skill-card',5);
+attachTilt('.project-card',5);
+attachTilt('.about-box',3);
+
+gsap.registerPlugin(ScrollTrigger);
+gsap.utils.toArray('.about-box,.skill-card,.project-card,.contact-box').forEach(el=>{
+  gsap.from(el,{y:22,opacity:0,duration:.55,scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+document.querySelectorAll('.project-card').forEach(c=>{
+  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();c.click()}});
+});
+</script>
+</body>
+</html>
