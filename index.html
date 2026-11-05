@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heri Ilham Al’viansyah • Portfolio (@hrihq)</title>
+  <meta name="description" content="Portofolio resmi Heri Ilham Al’viansyah (@hrihq) — Welder × Web Developer × AI Automation.">
+  <link rel="stylesheet" href="./tokens.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Ambient Monet Vector Background -->
+  <div class="monet-wrap" aria-hidden="true">
+    <img alt="Monet Vector Y" class="monet-blob blob-tl" src="./assets/monet-yellow.png">
+    <img alt="Monet Vector W" class="monet-blob blob-tr" src="./assets/monet-white.png">
+    <img alt="Monet Vector B" class="monet-blob blob-bl" src="./assets/monet-blue.png">
+    <img alt="Monet Vector T" class="monet-blob blob-br" src="./assets/monet-teal.png">
+  </div>
+
+  <div class="app-root">
+    <!-- Navbar -->
+    <header class="container">
+      <nav class="navbar">
+        <a href="#home" class="brand" id="navHome">
+          <img src="./assets/avatar.png" alt="Heri Ilham" class="brand-avatar">
+          <span>hrihq</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#home" class="nav-link active" id="linkHome">Home</a>
+          <a href="#profile" class="nav-link" id="linkProfile">Profil &amp; Karya</a>
+          <a href="https://github.com/hrihq" target="_blank" rel="noreferrer" class="nav-link">GitHub</a>
+        </div>
+
+        <div class="badge-work">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Open to Work</span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- VIEW 1: HERO STAGE -->
+    <main id="heroStage" class="container view-stage">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Membangun sistem web presisi &amp; otomasi cerdas.
+        </h1>
+
+        <p class="hero-subtitle">
+          Halo, saya <strong>Heri Ilham Al’viansyah</strong> (@hrihq). Welder × Web Developer × AI Automation. Memadukan disiplin ketelitian rekayasa fabrikasi dengan arsitektur web modern, sistem kasir, presensi offline ML, dan agen cerdas.
+        </p>
+
+        <div class="hero-buttons">
+          <button id="btnEnterProfile" type="button" class="btn-main">
+            <span>Buka Profil &amp; Proyek</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </button>
+
+          <a href="https://github.com/hrihq" target="_blank" rel="noreferrer" class="btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+              <path d="M9 18c-4.51 2-5-2-7-2"></path>
+            </svg>
+            <span>GitHub Profile</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- VIEW 2: PROFILE, PROJECTS & CERTIFICATES (Revealed via In-Depth Zoom) -->
+    <section id="profileStage" class="container view-stage is-hidden">
+      <div class="profile-wrap">
+        <!-- Top bar action -->
+        <div class="profile-topbar stagger-item">
+          <button id="btnBackToHero" type="button" class="btn-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m12 19-7-7 7-7"></path>
+              <path d="M19 12H5"></path>
+            </svg>
+            <span>Kembali ke Beranda</span>
+          </button>
+          <span class="chip">Portfolio &amp; Credentials</span>
+        </div>
+
+        <!-- Bio Card -->
+        <div class="card-material profile-bio-card stagger-item">
+          <div class="bio-header">
+            <div class="depth-portrait-wrap" id="profileDepthWrap">
+              <div class="depth-portrait" id="profileDepthCard">
+                <div class="depth-glow" aria-hidden="true"></div>
+                <img src="./assets/profile.jpg" alt="Foto Profil Heri Ilham Al’viansyah" class="depth-photo">
+                <div class="depth-overlay" aria-hidden="true"></div>
+              </div>
+            </div>
+            <div>
+              <h2 class="bio-name">Heri Ilham Al’viansyah</h2>
+              <div class="bio-handle">@hrihq • Kediri / Indonesia</div>
+              <div class="bio-role">Welder × Web Developer × AI Automation</div>
+            </div>
+          </div>
+
+          <p class="bio-text">
+            Fokus pada pengembangan aplikasi fungsional yang menyelesaikan masalah nyata: mulai dari aplikasi pencatatan transaksi kasir lokal, sistem absensi berbasis kecerdasan visual luring (offline face recognition), hingga eksplorasi agen AI otomatis dan web presisi.
+          </p>
+
+          <div class="bio-tags">
+            <span class="chip">JavaScript</span>
+            <span class="chip">TypeScript</span>
+            <span class="chip">React Native</span>
+            <span class="chip">Expo</span>
+            <span class="chip">ML Kit Face Detection</span>
+            <span class="chip">HTML5 &amp; Modern CSS</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">AI Automation</span>
+            <span class="chip">Robot Welding (OTC DAIHEN)</span>
+            <span class="chip">Industrial Precision</span>
+          </div>
+        </div>
+
+        <!-- Pinned Repositories / Projects -->
+        <div class="stagger-item">
+          <div class="section-heading">
+            <span>Repository &amp; Proyek Unggulan</span>
+            <a href="https://github.com/hrihq?tab=repositories" target="_blank" rel="noreferrer" class="project-link">
+              <span>Lihat Semua di GitHub</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17l9.2-9.2M17 17V8H8"></path>
+              </svg>
+            </a>
+          </div>
+
+          <div class="project-grid">
+            <!-- Project 1: kasir-nusantara -->
+            <article class="card-material project-card">
+              <div class="project-top">
+                <h3 class="project-title">Kasir Nusantara</h3>
+                <span class="project-tag">JavaScript / POS App</span>
+                <p class="project-desc">
+                  Aplikasi Kasir Warung digital untuk pencatatan transaksi cepat, pengelolaan katalog barang dagangan, kalkulasi kembalian otomatis, dan rekap pemasukan harian.
+                </p>
+              </div>
+              <div class="project-footer">
+                <span class="chip" style="font-size: 0.75rem;">hrihq/kasir-nusantara</span>
+                <a href="https://github.com/hrihq/kasir-nusantara" target="_blank" rel="noreferrer" class="project-link">
+                  <span>Buka Repo</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 2: my-absen -->
+            <article class="card-material project-card">
+              <div class="project-top">
+                <h3 class="project-title">My Absen</h3>
+                <span class="project-tag">React Native / ML Kit</span>
+                <p class="project-desc">
+                  Sistem presensi wajah cerdas yang berjalan sepenuhnya offline memanfaatkan deteksi wajah ML Kit pada perangkat bergerak tanpa ketergantungan server awan.
+                </p>
+              </div>
+              <div class="project-footer">
+                <span class="chip" style="font-size: 0.75rem;">hrihq/my-absen</span>
+                <a href="https://github.com/hrihq/my-absen" target="_blank" rel="noreferrer" class="project-link">
+                  <span>Buka Repo</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 3: rasa-nusantara -->
+            <article class="card-material project-card">
+              <div class="project-top">
+                <h3 class="project-title">Rasa Nusantara</h3>
+                <span class="project-tag">Frontend / Culinary Hub</span>
+                <p class="project-desc">
+                  Platform eksplorasi kuliner tradisional Nusantara yang menyajikan kurasi cita rasa daerah dengan tata letak visual modern, responsif, dan ringan.
+                </p>
+              </div>
+              <div class="project-footer">
+                <span class="chip" style="font-size: 0.75rem;">hrihq/rasa-nusantara</span>
+                <a href="https://github.com/hrihq/rasa-nusantara" target="_blank" rel="noreferrer" class="project-link">
+                  <span>Buka Repo</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Project 4: portfolio -->
+            <article class="card-material project-card">
+              <div class="project-top">
+                <h3 class="project-title">Portfolio Showcase</h3>
+                <span class="project-tag">Design System / Showcase</span>
+                <p class="project-desc">
+                  Ruang pamer karya dan rekayasa perangkat lunak interaktif dengan estetika palet warna Monet dan animasi transisi kedalaman dinamis.
+                </p>
+              </div>
+              <div class="project-footer">
+                <span class="chip" style="font-size: 0.75rem;">hrihq/portfolio</span>
+                <a href="https://github.com/hrihq/portfolio" target="_blank" rel="noreferrer" class="project-link">
+                  <span>Buka Repo</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Section: Sertifikat & Lisensi Resmi -->
+        <div class="stagger-item">
+          <div class="section-heading">
+            <span>Sertifikat &amp; Lisensi Resmi</span>
+            <span class="chip" style="font-size: 0.8125rem;">5 Terverifikasi</span>
+          </div>
+
+          <div class="cert-grid">
+            <!-- Cert 1: OpenAI Academy -->
+            <article class="card-material cert-card" data-img="./assets/cert-openai.png" data-title="Applied AI Foundations — OpenAI Academy">
+              <div class="cert-thumb-wrap">
+                <img src="./assets/cert-openai.png" alt="OpenAI Academy Applied AI Foundations" class="cert-thumb" loading="lazy">
+              </div>
+              <div class="cert-meta">
+                <h3 class="cert-title">Applied AI Foundations</h3>
+                <p class="cert-issuer">OpenAI Academy (ID: 19f09henxq)</p>
+                <div class="cert-issuer">September 2026</div>
+                <span class="cert-action">
+                  <span>Pratinjau Sertifikat</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </span>
+              </div>
+            </article>
+
+            <!-- Cert 2: Google Ads Apps Skillshop -->
+            <article class="card-material cert-card">
+              <div class="cert-thumb-wrap" style="display: flex; align-items: center; justify-content: center; background: var(--color-surface); padding: var(--space-4);">
+                <div style="text-align: center;">
+                  <span class="project-tag" style="display: inline-block; margin-bottom: var(--space-2);">Google Skillshop</span>
+                  <div style="font-weight: 700; font-size: 1.15rem; color: var(--color-stone);">Google Ads Apps</div>
+                  <div style="font-size: 0.8125rem; color: var(--color-stone-muted); margin-top: 4px;">ID: 193019045</div>
+                </div>
+              </div>
+              <div class="cert-meta">
+                <h3 class="cert-title">Google Ads Apps Certification</h3>
+                <p class="cert-issuer">Google Skillshop Terverifikasi</p>
+                <div class="cert-issuer">Sep 2026 hingga Sep 2027</div>
+                <a href="https://skillshop.credential.net/d9328390-237e-412b-ab75-f7cc7de2c402?record_view=true" target="_blank" rel="noreferrer" class="project-link" style="margin-top: var(--space-1);">
+                  <span>Verifikasi Kredensial</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Cert 3: Robot Welding OTC DAIHEN -->
+            <article class="card-material cert-card" data-img="./assets/cert-welding.jpg" data-title="Robot FD Series Basic Arc Welding — OTC DAIHEN">
+              <div class="cert-thumb-wrap">
+                <img src="./assets/cert-welding.jpg" alt="OTC DAIHEN Robot Welding Certificate" class="cert-thumb" loading="lazy">
+              </div>
+              <div class="cert-meta">
+                <h3 class="cert-title">Robot FD Series Welding</h3>
+                <p class="cert-issuer">OTC DAIHEN (Batch 169)</p>
+                <div class="cert-issuer">Februari 2026</div>
+                <span class="cert-action">
+                  <span>Pratinjau Sertifikat</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </span>
+              </div>
+            </article>
+
+            <!-- Cert 4: PT ATMI MIKAEL FORTUNA -->
+            <article class="card-material cert-card" data-img="./assets/cert-atmi.jpg" data-title="Praktik Kerja Industri — PT ATMI MIKAEL FORTUNA">
+              <div class="cert-thumb-wrap">
+                <img src="./assets/cert-atmi.jpg" alt="PT ATMI Mikael Fortuna Certificate" class="cert-thumb" loading="lazy">
+              </div>
+              <div class="cert-meta">
+                <h3 class="cert-title">Praktik Kerja Industri</h3>
+                <p class="cert-issuer">Pt Atmi Mikael Fortuna</p>
+                <div class="cert-issuer">Predikat BAIK (Nov 2025)</div>
+                <span class="cert-action">
+                  <span>Pratinjau Sertifikat</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </span>
+              </div>
+            </article>
+
+            <!-- Cert 5: TOEIC Listening & Reading -->
+            <article class="card-material cert-card" data-img="./assets/cert-toeic.jpg" data-title="TOEIC Official Score Certificate — ETS & ITC">
+              <div class="cert-thumb-wrap">
+                <img src="./assets/cert-toeic-thumb.jpg" alt="TOEIC Official Certificate" class="cert-thumb" loading="lazy">
+              </div>
+              <div class="cert-meta">
+                <h3 class="cert-title">TOEIC Official Score</h3>
+                <p class="cert-issuer">ETS &amp; ITC Indonesia</p>
+                <div class="cert-issuer">Skor: 490 (Okt 2026)</div>
+                <span class="cert-action">
+                  <span>Pratinjau Sertifikat</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container footer">
+      <div class="footer-inner">
+        <div>
+          <span>© 2026 Heri Ilham Al’viansyah • </span>
+          <a href="https://github.com/hrihq" target="_blank" rel="noreferrer" style="color: inherit; text-decoration: underline;">@hrihq</a>
+        </div>
+        <div>
+          <span>Palet Monet Material You</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Certificate Lightbox Modal -->
+  <div id="certLightbox" class="lightbox is-hidden" role="dialog" aria-modal="true" aria-label="Pratinjau Sertifikat">
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="./assets/cert-openai.png" alt="Pratinjau Sertifikat" class="lightbox-img">
+      <button id="btnCloseLightbox" type="button" class="btn-close-lightbox">
+        Tutup Pratinjau
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Smooth In-Depth Transition Script -->
+  <script>
+    document.body.classList.add('js-ready');
+
+    const heroStage = document.getElementById('heroStage');
+    const profileStage = document.getElementById('profileStage');
+    const btnEnterProfile = document.getElementById('btnEnterProfile');
+    const btnBackToHero = document.getElementById('btnBackToHero');
+    const linkHome = document.getElementById('linkHome');
+    const linkProfile = document.getElementById('linkProfile');
+    const navHome = document.getElementById('navHome');
+
+    let isAnimating = false;
+
+    function transitionToProfile() {
+      if (isAnimating || !profileStage.classList.contains('is-hidden')) return;
+      isAnimating = true;
+
+      // 1. Hero zooms in depth (scales up and fades out)
+      heroStage.classList.add('zoom-exit');
+
+      setTimeout(() => {
+        heroStage.classList.add('is-hidden');
+        heroStage.classList.remove('zoom-exit');
+
+        // 2. Profile reveals with dive-in zoom animation
+        profileStage.classList.remove('is-hidden');
+        profileStage.classList.add('zoom-enter');
+
+        // Update nav indicator
+        linkHome.classList.remove('active');
+        linkProfile.classList.add('active');
+
+        // Stagger children reveal
+        const staggerItems = profileStage.querySelectorAll('.stagger-item');
+        staggerItems.forEach((el, index) => {
+          el.classList.remove('revealed');
+          setTimeout(() => {
+            el.classList.add('revealed');
+          }, 80 + index * 90);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
+        setTimeout(() => {
+          profileStage.classList.remove('zoom-enter');
+          isAnimating = false;
+        }, 750);
+      }, 420);
+    }
+
+    function transitionToHero() {
+      if (isAnimating || profileStage.classList.contains('is-hidden')) return;
+      isAnimating = true;
+
+      // 1. Profile scales down and fades out
+      profileStage.classList.add('zoom-reverse-exit');
+
+      setTimeout(() => {
+        profileStage.classList.add('is-hidden');
+        profileStage.classList.remove('zoom-reverse-exit');
+
+        // 2. Hero enters smoothly
+        heroStage.classList.remove('is-hidden');
+        heroStage.classList.add('zoom-enter');
+
+        // Update nav indicator
+        linkProfile.classList.remove('active');
+        linkHome.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'instant' });
+
+        setTimeout(() => {
+          heroStage.classList.remove('zoom-enter');
+          isAnimating = false;
+        }, 700);
+      }, 350);
+    }
+
+    btnEnterProfile.addEventListener('click', transitionToProfile);
+    btnBackToHero.addEventListener('click', transitionToHero);
+
+    linkProfile.addEventListener('click', (e) => {
+      e.preventDefault();
+      transitionToProfile();
+    });
+
+    linkHome.addEventListener('click', (e) => {
+      e.preventDefault();
+      transitionToHero();
+    });
+
+    navHome.addEventListener('click', (e) => {
+      e.preventDefault();
+      transitionToHero();
+    });
+
+    // 3D Depth Effect on Profile Photo
+    const depthWrap = document.getElementById('profileDepthWrap');
+    const depthCard = document.getElementById('profileDepthCard');
+
+    if (depthWrap && depthCard) {
+      depthWrap.addEventListener('mousemove', (e) => {
+        const rect = depthWrap.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = -(y / rect.height) * 22;
+        const rotateY = (x / rect.width) * 22;
+
+        depthCard.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+
+      depthWrap.addEventListener('mouseleave', () => {
+        depthCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    // Lightbox handling
+    const certLightbox = document.getElementById('certLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const btnCloseLightbox = document.getElementById('btnCloseLightbox');
+
+    document.querySelectorAll('.cert-card[data-img]').forEach(card => {
+      card.addEventListener('click', () => {
+        const imgSrc = card.getAttribute('data-img');
+        const imgAlt = card.getAttribute('data-title') || 'Sertifikat';
+        lightboxImg.src = imgSrc;
+        lightboxImg.alt = imgAlt;
+        certLightbox.classList.remove('is-hidden');
+      });
+    });
+
+    function closeLightbox() {
+      certLightbox.classList.add('is-hidden');
+      lightboxImg.src = '';
+    }
+
+    btnCloseLightbox.addEventListener('click', closeLightbox);
+    certLightbox.addEventListener('click', (e) => {
+      if (e.target === certLightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !certLightbox.classList.contains('is-hidden')) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

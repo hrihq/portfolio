@@ -1,0 +1,51 @@
+/* Hallmark · theme: custom (by request) · posture: committed · surface: absolute · hero: stage · nav: brand-links-badge · footer: meta-legal */
+:root {
+  --color-bg: oklch(97.8% 0.024 92);
+  --color-surface: oklch(95.2% 0.032 88);
+  --color-surface-hover: oklch(93.8% 0.038 88);
+  --color-accent: oklch(91.5% 0.085 88);
+  --color-accent-hover: oklch(89.2% 0.095 88);
+  --color-accent-ink: oklch(20% 0.02 85);
+  --color-mint: oklch(84.5% 0.075 145);
+  --color-mint-ink: oklch(38% 0.05 145);
+  --color-stone: oklch(36% 0.018 85);
+  --color-stone-muted: oklch(52% 0.015 85);
+  --color-stone-border: oklch(36% 0.018 85 / 0.14);
+  --color-black: oklch(18% 0.01 85);
+  --color-backdrop: oklch(15% 0.01 85 / 0.94);
+  --color-status: oklch(72% 0.17 142);
+  --color-status-glow: oklch(72% 0.17 142 / 0.25);
+  --color-focus: oklch(50% 0.15 90);
+
+  --font-sans: "Google Sans", "Product Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 8px oklch(36% 0.018 85 / 0.08);
+  --shadow-md: 0 8px 24px oklch(36% 0.018 85 / 0.08);
+  --shadow-lg: 0 16px 36px oklch(36% 0.018 85 / 0.12);
+  --shadow-depth: 0 16px 32px oklch(36% 0.018 85 / 0.18);
+  --shadow-depth-hover: 0 24px 44px oklch(36% 0.018 85 / 0.26);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+* {
+  scrollbar-color: var(--color-stone-muted) var(--color-bg);
+}
